@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <link rel="stylesheet" href="../../system/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap-theme.css">
+    <script src="jquery-1.12.0.min.js"></script>
+    <style>
+        .headWord {
+            vertical-align: top;
+            display: inline-block;
+            color: #28272A;
+            font-size: 13px;
+            line-height: 22px;
+            margin-left: 80px;
+        }
+        .form-control{
+            display: inline-block;
+            width: 12%!important;
+            height: 23px!important;
+        }
+    </style>
+
+</head>
+<body>
+<div class="palette0" style="background-color: #f9f9f9;position: fixed ;float: right;width: 100%">
+    <div style="display: inline-block;vertical-align: top;text-align: center">
+        <div style=" float: right">
+            <div class="headWord" >按设备编号查询：</div>
+            <input style="width: 137px!important;" type="text" class="form-control"  id="num" placeholder="4位编号"/>
+            <button type="button" style="margin: 0;padding: 0;" class="layui-btn layui-btn-xs" onclick="selectById()">
+                <i class="fa fa-search" style="margin-left:-30px;color:  #28272A;" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="table" style="padding-top: 50px">
+    <div id="table">
+        <table class="table table-striped" style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">设备编号</th>
+                <th style="text-align: center">维修人员</th>
+                <th style="text-align: center">维修情况</th>
+                <th style="text-align: center">维修时间</th>
+                <th style="text-align: center">维修结果</th>
+               <th style="text-align: center">备注</th>
+            </tr>
+            <tbody id="tBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url: "http://192.168.43.214:8181/maintenance/findMaintenanceAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("尚无需要维修的设备！即将显示所有设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].rman  +'</td> <td style="overflow:hidden">'
+                            +data[i].rsuti +'</td> <td style="overflow:hidden">'
+                            +data[i].rtime +'</td><td> '+
+                            +data[i].result+'</td><td> '+
+                            +data[i].remark+'</td> '+
+                            '</tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！即将显示所有设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    });
+
+    function jumpDetail(id){
+        window.location.href='fixDetail.html?id='+id;
+    }
+
+    function selectById() {
+        var idValue=$("#num").val();
+        if(idValue===''){
+            alert("请输入设备编号！");
+        }
+        else if(idValue.length!==4){
+            alert("请检查填写的设备编号是否为4位数字");
+        }
+        else $.ajax({
+            url: "http://192.168.43.214:8181/maintenance/findMaintenanceByEnum",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                enum1:idValue,
+            }),
+            cache:false,
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("尚无需要维修的设备！即将显示所有设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].rman  +'</td> <td style="overflow:hidden">'
+                            +data[i].rsuti +'</td> <td style="overflow:hidden">'
+                            +data[i].rtime +'</td><td> '+
+                            +data[i].result+'</td><td> '+
+                            +data[i].remark+'</td> '+
+                            '</tr>';
+                    }
+                    alert("查询成功！");
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！即将显示所有设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

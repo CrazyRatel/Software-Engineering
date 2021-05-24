@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <script src="jquery-1.12.0.min.js"></script>
+</head>
+<body>
+<div class="table">
+    <div id="table">
+        <table class="table table-striped" style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">设备编号</th>
+                <th style="text-align: center">批准人员</th>
+                <th style="text-align: center">报废原因</th>
+                <th style="text-align: center">
+                    操作
+                </th>
+            </tr>
+            <tbody id="tBody"></tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url: "http://192.168.43.214:8181/baofei/findbaofeiAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("尚无报废设备！即将显示所有设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].aman +'</td> <td style="overflow:hidden">'
+                            +data[i].reason +'</td> ' +
+                            '<td><button type="button" class="layui-btn layui-btn-xs"  onclick="jumpDetail(\'' + data[i].enum1 + '\')">详情</button></td></tr>'+
+                        '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("尚无报废设备！即将显示所有设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    });
+    function jumpDetail(id){
+        window.location.href='baofeiDetail.html?id='+id;
+    }
+</script>
+</body>
+</html>

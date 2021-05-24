@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <style>
+        .adjust{
+            padding-top: 12px;
+        }
+        .cell{
+            vertical-align: center;
+            width: 180px!important;
+            text-align: center;
+            height: 40px;
+            display: inline-block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+        a{
+            text-decoration:none;
+            margin: 5px;
+        }
+        button{width:80px}
+        td{border-radius: 15px}
+        #te{
+            display: inline-block;
+            width: 900px;
+            background-color: white;
+            border-radius: 15px
+        }
+    </style>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body style="background-color:  #00b4ef">
+<div id="return">
+    <button class="btn btn-default" role="button" onclick="exit()" style="margin: 10px;padding-left: 10px">退出登录</button>
+    <button class="btn btn-default" role="button" onclick="toPage()" style="margin: 10px;padding-left: 3px">填写报销单</button>
+    <div style="float:right;margin-right: 15px">
+        <button class="btn btn-default" role="button" style="margin: 10px">筛选 : </button>
+        <button type="button" class="btn btn-success" onclick="screening2()">通过</button>
+        <button type="button" class="btn btn-warning" onclick="screening3()">待定</button>
+        <button type="button" class="btn btn-danger"  onclick="screening1()">不通过</button>
+    </div>
+</div>
+<div style="text-align: center;" >
+    <table class="table-striped" id="te">
+        <thead>
+        <tr>
+            <div>
+                <h3 style="margin-bottom:15px ">我的提交列表</h3>
+            </div>
+            <th class="cell adjust">姓名</th><th class="cell adjust">摘要</th><th class="cell adjust">时间</th>
+            <th class="cell adjust">修改</th><th class="cell adjust">审核状态</th>
+        </tr>
+        </thead>
+        <tbody id="tb">
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="../jquery/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    //var userId = window.location.href.split("=")[1];
+    var a=window.location.href.split("&");
+    var userId=a[0].split("=")[1];
+    var tok=a[1].split("=")[1];
+    $(function () {
+        $.ajax({
+            url: "http://192.168.43.70:8081/login/myList",
+            dataType: "json",
+            type: "post",
+            data: {
+                token:tok
+               // userId: userId
+            },
+            success: function (data) {
+                var str = "";
+                data = data.data;
+                for ( var i = 0; i < data.length; i++ ) {
+                    str = str + '<tr><td class="cell adjust">' + data[i].userName + '</td>'
+                        + '<td class="cell adjust" >' + data[i].note + '</td>'
+                        + '<td class="cell adjust">' +update(data[i].createTime,data[i].updateTime)+ '</td>'
+                        + '<td class="cell">' + change(data[i].status,data[i].refundRecordId,userId)+ '</td>'
+                        + '<td class="cell">' + judge(data[i].status) + '</td></tr>';
+                }
+                $("#tb").html(str);
+            },
+            error: function (data){
+                alert('查询失败');
+            }
+        })
+    })
+    //  筛选
+    function screening1() {
+        window.location.href = 'screening1.html?id='+userId+"&token="+tok
+    }
+    function screening2() {
+        window.location.href = 'screening2.html?id='+userId+"&token="+tok
+    }
+    function screening3() {
+        window.location.href = 'screening3.html?id='+userId+"&token="+tok
+    }
+    //  判断时间
+    function update(time,newTime) {
+        if( newTime != null) {
+            return getLocalTime(newTime);
+        }
+        else{
+            return getLocalTime(time);
+        }
+    }
+    //  返回填写界面
+    function toPage() {
+        window.location.href = '../../submitform/html/submitform.html?id='+userId+"&token="+tok
+    }
+    //  修改按钮
+    function change(ch,an,ge) {
+        if( ch == '1') {
+            return '<button class="btn btn-default" onclick="check(\''+an+'\',\''+ge+'\')">查看</button>';
+        }
+        else {
+            return '<button class="btn btn-default" onclick="detail(\''+an+'\',\''+ge+'\')">修改</button>'
+        }
+    }
+    //  判断状态
+    function judge(ju) {
+        if(ju == '0'){
+            //status = '不通过';
+            return  '<button type="button" class="btn btn-danger" disabled="disabled">不通过</button>'
+        } else if(ju == '1'){
+            // status = '通过';
+            return  '<button type="button" class="btn btn-success" disabled="disabled">通过</button>'
+        }else{
+            //status = '待定';
+            return '<button type="button" class="btn btn-warning" disabled="disabled">待定</button>'
+        }
+    }
+    //  转换时间格式
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ');
+    }
+    //  修改信息
+    function detail(num,id){
+        //alert(id)
+        window.location.href='../../submitform/html/modify.html?id='+id+'&num='+num+"&token="+tok;
+    }
+    //  查看信息
+    function check(num,id) {
+        window.location.href = '../../submitform/html/examine.html?id=' + id + '&num=' + num + "&token=" + tok;
+    }
+    //  退出登录
+    function exit() {
+        $.ajax({
+            url: "http://192.168.43.70:8081/login/exit",
+            dataType: "json",
+            type: "post",
+            data: {
+                token: tok
+            },
+            success: function () {
+                window.location.href = 'enter.html'
+            }
+        })
+    }
+</script>
+</body>
+</html>

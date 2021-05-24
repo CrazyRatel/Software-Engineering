@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+</head>
+<body>
+<div class="ready">
+    <div id="table">
+        <table class="table table-striped"  style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">设备名称</th>
+                <th style="text-align: center">设备型号</th>
+                <th style="text-align: center">设备种类</th>
+                <th style="text-align: center">设备数量</th>
+                <th style="text-align: center">备注</th>
+            </tr>
+            <tbody id="tBody"></tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url: "http://192.168.43.214:8181/lack/findLackAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("无缺货信息！即将显示所有设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].remark==="null"){
+                            data[i].remark="";
+                        }
+                        if(data[i].remark===null){
+                            data[i].remark="";
+                        }
+                        var information = [ "", "", "" ];
+                        information[1]=data[i].pnum;
+                        information[2]=data[i].ename;
+                        information[3]=data[i].emode;
+                        information[4]=data[i].etype;
+                        information[5]=data[i].equanity;
+                        information[0]=data[i].remark;
+                        str = str +'<tr> <td >'
+                            +data[i].pnum +'</td> <td>'
+                            +data[i].ename+'</td> <td>'
+                            +data[i].emode +'</td> <td>'
+                            +data[i].equanity+'</td>'+
+                            '<td style="text-align: center">' +
+                            '<button class="layui-btn layui-btn-xs" onclick="dte(\'' + information + '\')">删除  </button>' +
+                            '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！即将显示所有设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    });
+    function dte(arr) {
+        var string=arr.split(",");
+        console.log(string);
+
+        $.ajax({
+            url: "http://192.168.43.214:8181/lack/dropLack",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                pnum:string[1],
+                ename:string[2],
+                emode:string[3],
+                etype:string[4],
+                equanity:string[5],
+                remark:string[0],
+            }),
+            success:function(data){
+                console.log(data);
+                if(data.length === 0){
+                    alert("删除失败！重新加载本页！");
+                    window.location.href='need.html';
+                }
+                else{
+                    alert("删除成功！重新加载本页！");
+                    window.location.href='need.html';
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误!重新加载本页！");
+                window.location.href='need.html';
+            }
+        });
+    }
+</script>
+</body>
+</html>

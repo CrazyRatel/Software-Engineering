@@ -1,0 +1,16 @@
+.left{
+    width:250px;
+    text-align: right;
+}
+.right{
+    width:250px;
+    text-align: left;
+}
+body{
+    background-image: url("../img/final2.jpg");
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+    min-height: 100vh;
+    font-size: 18px;
+}

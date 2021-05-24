@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户界面</title>
+    <link rel="stylesheet" href="../resource/layui/css/layui.css">
+    <script src="../resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../../system/fonts/font-awesome.min.css">
+    <!--    <script src="laydate/laydate.js"></script>-->
+</head>
+
+<style>
+    .design {
+        width: 100%;
+        text-align: center;
+        line-height: 40px;
+        color: ivory;
+        background-color:#393D49;
+        display: block;
+    }
+    .nav-user-photo{
+    	margin: -4px 8px 0 0;
+    	border-radius: 100%;
+    	border: 2px solid #FFF;
+    	max-width: 40px;
+    }
+    .user-info{
+    	max-width: 100px;
+    	display: inline-block;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    	text-align: left;
+    	vertical-align: top;
+    	line-height: 15px;
+    	position: relative;
+    	top: 6px;
+    }
+    .user-info>small{
+    	display: block;
+    }
+
+    /* 隐藏右上角功能 */
+    .uinfo{
+        box-sizing: border-box;
+        width: 111.778px;
+        background-color: #393D49;
+        border: gray solid 1px;
+        box-shadow: 5px 2px rgb(112, 112, 112);
+        border-bottom-left-radius: 10px;
+        right: 0px;
+        position: absolute;
+        z-index: 1;
+        display: none;
+    }
+    /* 变小手 */
+    .choice{
+        box-sizing: border-box;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 2px 5px;
+        cursor: pointer;
+        color: white;
+    }
+    .choice:hover{
+        background-color:#009688;
+    }
+</style>
+
+<body  style="overflow: hidden;">
+
+    <div class="design">
+        <ul>
+            <li style="color: #93cbf9 !important;text-align: center;float: right;">
+                <a class="user" id="getInfo" style="cursor: pointer;">
+                    <img class="nav-user-photo" src="../img/rth-2.jpg"/>
+                    <span class="user-info" style="color: #FFFFFF;">
+                        <small>欢迎您，</small>
+                        <small id="name"></small>
+                    </span>
+                    <i class="fa fa-sort-down"></i>
+                </a>
+                <div class="uinfo">
+                    <div class="choice" style="border-bottom: 1px solid #f0f0f0;" onclick="reset_password();">
+                        <i class="fa fa-paint-brush"></i>
+                    修改密码
+                    </div>
+
+                    <div class="choice" onclick="back_to_login();">
+                        <i class="fa fa-power-off"></i>
+                    注销
+                    </div>
+                </div>
+            </li>
+            <li>
+                <span id="clock" style="color: ivory;">
+                    <!-- 2020-2021 秋 第12周 星期日 -->
+                </span>
+            </li>
+        </ul>
+    </div> 
+
+    <div class="">
+        <div class="">
+            <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="test" style="height: 100%;width: 15%;">
+                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                <li style="text-align: center;height: 60px;font-size: large;padding: 20px;">设备管理系统</li>
+                <li class="layui-nav-item" style="cursor:pointer;padding-left: 30px;"  onclick="manage();">设备信息查询</li>
+                <li class="layui-nav-item" style="cursor:pointer;padding-left: 30px;"  onclick="borrow_device();">借用设备</li>
+                <li  class="layui-nav-item" style="cursor:pointer;padding-left: 30px;" onclick="return_back();">设备归还</li>
+                <li class="layui-nav-item" style="cursor:pointer;padding-left: 30px;"  onclick="ask_repair();">设备报修</li>
+                <li  class="layui-nav-item"  style="cursor:pointer;padding-left: 30px;" onclick="ask_shop();">采购申请</li>
+                <!-- <li  class="layui-nav-item"  style="cursor:pointer;padding-left: 30px;" onclick="call_for();">问题反馈</li> -->
+            </ul>
+        </div>
+        <div class="" style="margin:0;width: 85%;float: right;">
+            <iframe id="iframe" src="" style="margin-top:-10px;margin-left:-2px;width:100%; height:100vh"></iframe>
+        </div>
+    </div>
+    <script type="text/javascript" src="../resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js" ></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            // start();
+            document.getElementById("name").innerHTML = decodeURIComponent(window.location.href.split("=")[1].split("+")[2]);
+
+            $("#iframe").attr("src","../../totalList/html/manage.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        });
+        
+        //顶部原子钟
+        window.onload = initDate;
+
+        function initDate(){
+            var dayName = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+            var monName = new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
+
+            var now = new Date();
+            var dtString = now.getFullYear()+" 年 "+monName[now.getMonth()]+" "+now.getDate()+"日 "+dayName[now.getDay()]+"&nbsp&nbsp&nbsp"
+            +now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
+            document.getElementById("clock").innerHTML=dtString;
+            setInterval("initDate()",1000);
+        }
+
+        // 显示修改密码、注销
+        $("#getInfo").mouseover(function(){
+            $(".uinfo").fadeIn(0);
+        })
+
+        // 隐藏修改密码、注销
+        $(".uinfo").mouseover(function(){
+            $(".uinfo").fadeIn(0);
+        })
+        $(".uinfo").mouseout(function(){
+            $(".uinfo").fadeOut(0);
+        })
+
+        // 修改密码
+        function reset_password(){
+            $("#iframe").attr("src","../../totalList/html/update_password.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3])
+        }
+
+        // 注销
+        function back_to_login(){
+            window.location.href="../../system/html/enter.html";
+        }
+        
+        // 员工管理
+        function manage(){
+            $("#iframe").attr("src","../../totalList/html/manage.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+
+        // 借用设备
+        function borrow_device(){
+            $("#iframe").attr("src","../../totalList/html/borrow_device.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+
+        // 归还设备
+        function return_back() {
+            $("#iframe").attr("src","../../totalList/html/return_back.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+
+        // 报修设备
+        function ask_repair(){
+            $("#iframe").attr("src","../../totalList/html/ask_repair.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+
+        // 采购申请
+        function ask_shop(){
+            $("#iframe").attr("src","../../totalList/html/ask_shop.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+
+        // 问题反馈
+        function call_for(){
+            $("#iframe").attr("src","../../totalList/html/call_for.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3]);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../system/css/font-awesome.min.css">
+</head>
+
+<body style="overflow: hidden;">
+<!--<div class="palette0" style="background-color: #FFFFFF">-->
+
+<!--</div>-->
+<!--<button style="margin-left: 20px;margin-bottom: 6px;"class="layui-btn layui-btn-xs" onclick="window.location.href='problemReflect.html'" id="filter">-->
+<!--    <i class="fa fa-bell-o" aria-hidden="true"></i>-->
+<!--</button>-->
+<div class="ready">
+    <div id="table" style="text-align: center;margin-top: 50px">
+        物联网八组
+        double刘代师任务有限公司
+<!--        <table class="table table-striped"  style="text-align: center">-->
+<!--            <tr class="character">-->
+<!--                <th style="text-align: center">设备编号</th>-->
+<!--                <th style="text-align: center">设备名称</th>-->
+<!--                <th style="text-align: center">设备型号</th>-->
+<!--                <th style="text-align: center">设备种类</th>-->
+<!--                <th style="text-align: center">购入时间</th>-->
+<!--                <th style="text-align: center">所属部门</th>-->
+<!--                <th style="text-align: center">存放位置</th>-->
+<!--                <th style="text-align: center">设备状态</th>-->
+<!--                <th style="text-align: center">备注</th>-->
+<!--                <th style="text-align: center">操作</th>-->
+<!--            </tr>-->
+<!--            <tbody id="tBody"></tbody>-->
+<!--        </table>-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<!--<script type="text/javascript">-->
+<!--    $(function(){-->
+<!--        $.ajax({-->
+<!--            url: "http://192.168.1.70:8181/equipment/findEquipmentAll",-->
+<!--            dataType: "json",-->
+<!--            type: "get",-->
+<!--            success:function(data){-->
+<!--                console.log(data);-->
+<!--                var str = "";-->
+<!--                var s = data.length;-->
+<!--                if(data.length === 0){-->
+<!--                    alert("error");-->
+<!--                }-->
+<!--                else{-->
+<!--                    for(var i = 0;i < s;i++){-->
+<!--                        if(data[i].estate===0){-->
+<!--                            data[i].estate="空闲";-->
+<!--                        }-->
+<!--                        else if(data[i].estate===1){-->
+<!--                            data[i].estate="已借出";-->
+<!--                        }-->
+<!--                        else if(data[i].estate===2){-->
+<!--                            data[i].estate="报废";-->
+<!--                        }-->
+<!--                        else if(data[i].estate===3){-->
+<!--                            data[i].estate="正在维修";-->
+<!--                        }-->
+<!--                        else if(data[i].remark==="null"){-->
+<!--                            data[i].remark="无";-->
+<!--                        }-->
+<!--                        str = str +'<tr> <td>'-->
+<!--                            +data[i].enum1 +'</td> <td>'-->
+<!--                            +data[i].ename +'</td> <td>'-->
+<!--                            +data[i].emode +'</td> <td>'-->
+<!--                            +data[i].etype +'</td> <td>'-->
+<!--                            +data[i].etime +'</td> <td>'-->
+<!--                            +data[i].dept + '</td> <td>'-->
+<!--                            +data[i].eplace+'</td> <td>'-->
+<!--                            +data[i].estate+'</td> <td>'-->
+<!--                            +data[i].remark+'</td>'-->
+<!--                            +-->
+<!--                            '<td style="text-align: center">' +-->
+<!--                            '<button class="layui-btn layui-btn-xs" onclick="edit()" >编辑  </button>' +-->
+<!--                            '<button class="layui-btn layui-btn-xs" onclick="dte()" >  报废</button>' +-->
+<!--                            '</td></tr>';-->
+<!--                    }-->
+<!--                    $("#tBody").html(str);-->
+<!--                }-->
+<!--            },-->
+<!--            error:function(data) {-->
+<!--                console.log(data);-->
+<!--                alert("er");-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    function edit() {-->
+
+<!--    }-->
+<!--    function dte() {-->
+<!--        window.location.href="baofei.html";-->
+<!--    }-->
+<!--</script>-->
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+.img{
+    /*background: url("")no-repeat;*/
+    background-size: cover;
+}
+.position{
+    width: 600px;
+    margin: auto;
+    margin-top:100px;
+    filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.75;
+    border: 1px solid beige;
+    padding: 20px;
+    background-color: #FFFFFF!important;
+}
+.radio{
+    margin-left: 50px;
+    width: 16px;
+    height: 16px;
+}
+.label{
+    width: 200px;
+    font-size: 16px;
+}
+.buttonInSubmit{
+text-align: center!important;
+}

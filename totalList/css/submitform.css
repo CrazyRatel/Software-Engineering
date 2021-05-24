@@ -1,0 +1,33 @@
+.img{
+    background: url("../img/gotham.jpg")no-repeat;
+    background-size: cover;
+}
+.position{
+    width: 600px;
+    margin: auto;
+    margin-top:100px;
+    margin-bottom: 100px;
+    filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.75;
+    border: 1px solid beige;
+    padding: 20px
+}
+.radio{
+    margin-left: 50px;
+    width: 16px;
+    height: 16px;
+}
+.label{
+    width: 200px;
+    font-size: 16px;
+}
+.key{
+    width: 80px;
+    height: 39.35px;
+    margin: .25em 0;
+    padding: .5em .4em;
+    text-align: center;
+    display: inline-block;
+}
+.buttonInSubmit{
+    text-align: center;
+}

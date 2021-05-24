@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+</head>
+<body>
+<div class="table">
+    <div id="table">
+        <table class="table table-striped" style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">账号</th>
+                <th style="text-align: center">姓名</th>
+                <th style="text-align: center">部门</th>
+                <th style="text-align: center">备注</th>
+            </tr>
+            <tbody id="tBody"></tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url: "http://192.168.43.214:8181//person/findPersonAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("无员工信息！即将显示所有设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].remark==="null"){
+                            data[i].remark="无";
+                        }
+                        if(data[i].remark===null){
+                            data[i].remark="无";
+                        }
+                        str = str +'<tr> <td>'
+                            +data[i].pnum +'</td> <td>'
+                            +data[i].pname  +'</td> <td>'
+                            +data[i].dept +'</td> <td>'
+                            +data[i].remark +'</td>'+
+                            '<td style="text-align: center">' +
+                            '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！即将显示所有设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    });
+function edit() {
+    
+}
+</script>
+</body>
+</html>

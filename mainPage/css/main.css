@@ -1,0 +1,33 @@
+.all{
+    height:802px;
+    display: block;
+    text-align: center;
+}
+.left{
+    width:190px;
+    height:800px!important;
+    display: inline-block;
+    vertical-align: top;
+}
+.right{
+    width:1323px;
+    height:800px;
+    display: inline-block;
+    vertical-align: top;
+}
+.bottom{
+    width:1309px;
+    height:730px;
+}
+.palette0{
+height: 50px;
+background-color:#393D49;
+color: #FFFFFF;
+padding-top:10px;
+vertical-align: top;
+padding-left: 10px;
+padding-right: 10px;
+}
+.layui-nav-item:hover{
+    background-color: #009688;;
+}

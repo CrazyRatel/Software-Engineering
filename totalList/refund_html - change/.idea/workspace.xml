@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4e5a83b6-d542-4e52-b777-5b70ec07aa02" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1P5T4wFCZ4LDiMUMQSe03QTQeLk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/totalList/html" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\物联网八组\refund_html\totalList\html" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\18046\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e5a83b6-d542-4e52-b777-5b70ec07aa02" name="Default Changelist" comment="" />
+      <created>1565162769600</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565162769600</updated>
+      <workItem from="1565162772576" duration="26000" />
+      <workItem from="1565162802747" duration="10796000" />
+      <workItem from="1565223935094" duration="212000" />
+      <workItem from="1565224301488" duration="228000" />
+      <workItem from="1565227229376" duration="44000" />
+      <workItem from="1565244139697" duration="996000" />
+      <workItem from="1565245289455" duration="10007000" />
+      <workItem from="1565312653194" duration="39000" />
+      <workItem from="1565321271360" duration="50000" />
+      <workItem from="1605851338502" duration="1795000" />
+      <workItem from="1605853161043" duration="1781000" />
+      <workItem from="1605854983016" duration="1786000" />
+      <workItem from="1605856916176" duration="1597000" />
+      <workItem from="1605859151058" duration="1110000" />
+      <workItem from="1605861768081" duration="1790000" />
+      <workItem from="1605881410645" duration="608000" />
+      <workItem from="1605932337394" duration="604000" />
+      <workItem from="1605940342149" duration="1661000" />
+      <workItem from="1605942165304" duration="1808000" />
+      <workItem from="1605944021600" duration="1790000" />
+      <workItem from="1605945839435" duration="1795000" />
+      <workItem from="1605947671872" duration="1571000" />
+      <workItem from="1605949512829" duration="1831000" />
+      <workItem from="1605951363393" duration="1811000" />
+      <workItem from="1605953259807" duration="1803000" />
+      <workItem from="1605956769998" duration="1787000" />
+      <workItem from="1605958585020" duration="117000" />
+      <workItem from="1605958724712" duration="162000" />
+      <workItem from="1605958894481" duration="44000" />
+      <workItem from="1605959002646" duration="1173000" />
+      <workItem from="1605967973370" duration="1035000" />
+      <workItem from="1605970070059" duration="1059000" />
+      <workItem from="1606192985444" duration="1665000" />
+      <workItem from="1606194910016" duration="1795000" />
+      <workItem from="1606196733001" duration="1836000" />
+      <workItem from="1606198596013" duration="1790000" />
+      <workItem from="1606200428936" duration="1796000" />
+      <workItem from="1606202254334" duration="1216000" />
+      <workItem from="1606217259327" duration="1930000" />
+      <workItem from="1606219231839" duration="1932000" />
+      <workItem from="1606221984064" duration="1795000" />
+      <workItem from="1606223808118" duration="1862000" />
+      <workItem from="1606225702551" duration="1788000" />
+      <workItem from="1606228687778" duration="1737000" />
+      <workItem from="1606231011914" duration="1825000" />
+      <workItem from="1606232983077" duration="1787000" />
+      <workItem from="1606234805013" duration="1802000" />
+      <workItem from="1606236634795" duration="1789000" />
+      <workItem from="1606238451031" duration="1390000" />
+      <workItem from="1606270716997" duration="1783000" />
+      <workItem from="1606272528288" duration="1788000" />
+      <workItem from="1606274345389" duration="1803000" />
+      <workItem from="1606276180583" duration="1496000" />
+      <workItem from="1606278104122" duration="1820000" />
+      <workItem from="1606279962930" duration="1436000" />
+      <workItem from="1606281981884" duration="1783000" />
+      <workItem from="1606283801400" duration="1807000" />
+      <workItem from="1606285644221" duration="1808000" />
+      <workItem from="1606287486089" duration="1481000" />
+      <workItem from="1606290218215" duration="1789000" />
+      <workItem from="1606292041365" duration="1376000" />
+      <workItem from="1606293796701" duration="31000" />
+      <workItem from="1606293851796" duration="1197000" />
+    </task>
+    <task id="LOCAL-00001" summary="更改css js路径">
+      <created>1565163386501</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1565163386501</updated>
+    </task>
+    <task id="LOCAL-00002" summary="修改功能栏">
+      <created>1565163542027</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1565163542027</updated>
+    </task>
+    <task id="LOCAL-00003" summary="修改功能栏">
+      <created>1565163587255</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1565163587255</updated>
+    </task>
+    <task id="LOCAL-00004" summary="修改显示字段">
+      <created>1565164033917</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1565164033917</updated>
+    </task>
+    <task id="LOCAL-00005" summary="实现批量管理">
+      <created>1565169850797</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1565169850797</updated>
+    </task>
+    <task id="LOCAL-00006" summary="修改批量管理">
+      <created>1565170777161</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1565170777161</updated>
+    </task>
+    <task id="LOCAL-00007" summary="修改userId">
+      <created>1565224499787</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1565224499787</updated>
+    </task>
+    <task id="LOCAL-00008" summary="修改userId">
+      <created>1565245132154</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1565245132154</updated>
+    </task>
+    <task id="LOCAL-00009" summary="添加全选按钮">
+      <created>1565249827290</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1565249827290</updated>
+    </task>
+    <task id="LOCAL-00010" summary="添加返回登录页面的按钮">
+      <created>1565251486437</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1565251486437</updated>
+    </task>
+    <task id="LOCAL-00011" summary="添加返回登录页面的按钮">
+      <created>1565251695769</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1565251695769</updated>
+    </task>
+    <task id="LOCAL-00012" summary="解决滚动条问题">
+      <created>1565252867642</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1565252867642</updated>
+    </task>
+    <task id="LOCAL-00013" summary="解决滚动条问题">
+      <created>1565312684586</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1565312684586</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="更改css js路径" />
+    <MESSAGE value="修改功能栏" />
+    <MESSAGE value="修改显示字段" />
+    <MESSAGE value="实现批量管理" />
+    <MESSAGE value="修改批量管理" />
+    <MESSAGE value="修改userId" />
+    <MESSAGE value="添加全选按钮" />
+    <MESSAGE value="添加返回登录页面的按钮" />
+    <MESSAGE value="解决滚动条问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决滚动条问题" />
+  </component>
+</project>

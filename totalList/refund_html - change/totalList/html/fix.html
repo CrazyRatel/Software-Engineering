@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>维修信息单</title>
+    <link rel="stylesheet" href="pure-release-1.0.0/pure-min.css">
+    <script type="text/javascript" src="jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/submitform.css">
+    <style>
+        .buttonInSubmit{
+            width: 600px;
+            height: 40px;
+            margin: auto;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body class="img" style="background-color: #BFE5E1;text-align: center">
+<div style="margin: auto;margin-top: 50px ">
+<div class="position" style="background-color:#ffffff;margin-top: 0;padding-top: 22px;" >
+<div class="pure-form pure-form-stacked" id="formData">
+    <fieldset>
+        <div>
+            <h3 style="display: inline-block;text-align: center">请填写已维修设备的信息</h3>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="display: inline">设备编号：</label>
+                <input id="enum1" readonly="readonly">
+                <span id="first-name" class="pure-u-23-24" style="margin-left: 0px; display: inline"></span>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="display: inline">维修人员：</label>
+                <input id="rman">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="display: inline">维修情况：</label>
+                <input id="rsuti">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="display: inline">维修时间：</label>
+                <input type="date" id="rtime" style="padding-left: 24px">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="display: inline">维修结果：</label>
+                <input id="result">
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-3">
+                <label for="first-name" style="margin-left: 14px;display: inline">备&nbsp&nbsp&nbsp&nbsp注：</label>
+                <input id="remark">
+            </div>
+        </div>
+        <div class="buttonInSubmit">
+        <button type="button" class="pure-button pure-button-primary" style="margin: auto;" onclick="confirm('确认返回？');window.location.href='../../mainPage/html/all.html'">返回</button>
+        <button type="button" class="pure-button pure-button-primary" id="submit" style="margin-left: 70px" onclick="handOn()">提交</button>
+        </div>
+    </fieldset>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var id=window.location.href.split('=')[1];
+        $("#enum1").val(id);
+        });
+    function handOn(){
+        var flag=confirm("是否确定提交");
+        var arr1=$("#enum1").val();
+        var arr2=$("#rman").val();
+        var arr3=$("#rsuti").val();
+        var arr4=$("#rtime").val();
+        var arr5=$("#result").val();
+        var arr6=$("#remark").val();
+        // alert(arr1+arr2+arr3+arr4+arr5+arr6);
+        if(flag){
+        $.ajax({
+            url: "http://192.168.43.214:8181/maintenance/addMaintenance",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                enum1:arr1,
+                rman:arr2,
+                rusti:arr3,
+                rtime:arr4,
+                result:arr5,
+                remark:arr6,
+            }),
+            success:function(data){
+                console.log(data);
+                if(data === true){
+                    alert("提交成功!");
+                    window.location.href="fixList.html";
+                }
+                else if(arr1===''||arr2===''||arr3===''||arr4===''||arr5===''||arr6===''||arr7===''||arr8===''){
+                    $('#addByJq').append(' <div style="text-align:center;width: 642px;height:30px;margin:auto;background-color:#FFF0F0;border:4px!important;border: #761c19;">\n' +
+                        '<span style="font-size: small;color: #761c19">\n' +
+                        '    提交失败!请检查填写是否有遗漏！\n' +
+                        '</span>\n' +
+                        '</div>');
+                }
+                else{
+                    alert("提交失败!此系统已存在该编号！");
+                    window.location.href="baofei.html";
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！此系统已存在该编号！");
+            }
+        });
+    }}
+</script>
+</body>
+</html>

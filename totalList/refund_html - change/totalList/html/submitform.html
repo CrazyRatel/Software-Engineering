@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>submitform</title>
+    <link rel="stylesheet" href="pure-release-1.0.0/pure-min.css">
+    <script type="text/javascript" src="jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/submitform.css">
+    <style>
+    </style>
+</head>
+<body class="img" style="background-color: #BFE5E1">
+<div style="margin: auto;margin-top: 50px ">
+    <div class="position" style="background-color:#ffffff;margin-top: 0;padding-top: 22px;" >
+        <div class="pure-form pure-form-stacked" id="formData">
+            <fieldset>
+                <div style="text-align: center">
+                    <h3 style="display: inline-block;text-align: center">请填写新购进设备的信息</h3>
+                </div>
+                <div class="pure-g">
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="display: inline">设备编号：</label>
+                        <input type="number" οninput="if(value.length>4)value=value.slice(0,4)" id="eqNum" οnkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"/>
+                        <span id="first-name" class="pure-u-23-24" style="margin-left: 0px; display: inline"></span>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="display: inline">设备名称：</label>
+                        <input id="eqName">
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="display: inline">设备型号：</label>
+                        <input id="eqKind">
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="display: inline">设备种类：</label>
+                        <input id="eqClass">
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="display: inline">购进日期：</label>
+                        <input TYPE="date"  id="eqNumber">
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3" style="line-height: 45px">
+                        <label  >所属部门：</label>
+                        <div style="display: inline-block;margin-left: -45px">
+                            <input type="radio"  name="refundTypeId1" value="办公部门" class="radio" id="checkbox1"><label class="label" for="checkbox1">办公部门</label>
+                            <input type="radio"  name="refundTypeId1" value="后勤部门" class="radio" id="checkbox2"><label  class="label" for="checkbox2">后勤部门</label>
+                            <input type="radio"  name="refundTypeId1" value="文化部门" class="radio" id="checkbox3"> <label  class="label" for="checkbox3">文化部门</label>
+                        </div>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3" style="line-height: 45px">
+                        <label  >存放位置：</label>
+                        <div style="display: inline-block;margin-left: -45px">
+                            <input type="radio"  name="refundTypeId2" value="K仓库" class="radio" id="checkbox4"><label class="label" for="checkbox4">K仓库</label>
+                            <input type="radio"  name="refundTypeId2" value="M仓库" class="radio" id="checkbox5"><label  class="label" for="checkbox5">M仓库</label>
+                            <input type="radio"  name="refundTypeId2" value="N仓库" class="radio" id="checkbox6"> <label  class="label" for="checkbox6">N仓库</label>
+                        </div>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="first-name" style="    margin-left: 31px;display: inline">备注：</label>
+                        <input id="eqAddition">
+                    </div>
+                </div>
+                <div class="buttonInSubmit">
+                <button type="button" class="pure-button pure-button-primary" id="submit" style="margin: auto;margin-left:50px" onclick="confirm('确认返回？');window.location.href='allList.html'">返回</button>
+                <button type="button" class="pure-button pure-button-primary"  style="margin: auto;" onclick="handOn()">提交</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div id="addByJq"></div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    class Data {
+    }
+
+    $(function () {
+        var date=new Data();
+        document.getElementById("#eqNumber").value=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    })
+    function handOn(){
+        confirm("确认提交？");
+
+        var arr1=$("#eqNum").val();
+        var arr2=$("#eqName").val();
+        var arr3=$("#eqKind").val();
+        var arr4=$("#eqClass").val();
+        var arr5=$("#eqNumber").val();
+        var arr6=$('input[name=refundTypeId1]:checked').val();
+        var arr7=$('input[name=refundTypeId2]:checked').val();
+        var arr8=$("#eqAddition").val();
+        if(arr1===''||arr2===''||arr3===''||arr4===''||arr5===''||arr6===''||arr7===''||arr8===''){
+            alert("请检查填写是否有遗漏");
+        }
+        else if(arr1.length!==4){
+            alert("请检查填写的设备编号是否为4位数字");
+        }
+        // alert(arr1+arr2+arr3+arr4+arr5+arr6+arr7+arr8);
+      else  $.ajax({
+            url: "http://192.168.43.214:8181/equipment/addEquipment",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                enum1:arr1,
+                ename:arr2,
+                emode:arr3,
+                etype:arr4,
+                etime:arr5,
+                dept:arr6,
+                eplace:arr7,
+                remark:arr8,
+            }),
+            success:function(data){
+                console.log(data);
+                if(data === true){
+                    alert("提交成功!");
+                    window.location.href="allList.html";
+                }
+                else if(arr1===''||arr2===''||arr3===''||arr4===''||arr5===''||arr6===''||arr7===''||arr8===''){
+                    $('#addByJq').append(' <div style="text-align:center;width: 642px;height:30px;margin:auto;background-color:#FFF0F0;border:4px!important;border: #761c19;">\n' +
+                        '<span style="font-size: small;color: #761c19">\n' +
+                        '    提交失败!请检查填写是否有错误！\n' +
+                        '</span>\n' +
+                        '</div>');
+                }
+                else{
+                    alert("提交失败!此系统已存在该编号！");
+                    window.location.href="baofei.html";
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("系统错误！此系统已存在该编号！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

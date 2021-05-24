@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <script src="jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" href="../../system/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap-theme.css">
+    <style>
+        #tBody{
+            height: 1000px;
+        }
+
+        .headWord {
+            vertical-align: top;
+            display: inline-block;
+            color: #28272A;
+            font-size: 13px;
+            line-height: 22px;
+            margin-left: 80px;
+        }
+        .form-control{
+            display: inline-block;
+            width: 12%!important;
+            height: 23px!important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="palette0" style="background-color: #f9f9f9;position: fixed">
+    <button style="margin-left: 20px;margin-bottom: 6px;"class="layui-btn layui-btn-xs" onclick="window.location.href='submitform.html'">＋ 添加设备</button>
+      <div style="display: inline-block;vertical-align: top;text-align: center">
+          <div style=" float: right">
+              <div class="headWord" >按设备编号查询：</div>
+              <input style="width: 137px!important;" type="text" class="form-control"  id="num" placeholder="4位编号"/>
+              <button type="button" style="margin: 0;padding: 0;" class="layui-btn layui-btn-xs" onclick="selectById()">
+                  <i class="fa fa-search" style="margin-left:-30px;color:  #28272A;" aria-hidden="true"></i></button>
+          </div>
+
+          <div class="headWord">
+              按设备名称查询：
+          </div>
+
+          <input type="text" class="form-control" style=" " id="search" placeholder="设备名称"/>
+
+<!--          <button type="button" style="margin: 0;padding: 0;" class="layui-btn layui-btn-xs" onclick="selectSome()">-->
+<!--              <i class="fa fa-search" style="margin-left:-30px;color:  #28272A;"-->
+<!--                 aria-hidden="true"></i></button>-->
+
+          <div  class="headWord" style=" ">
+              按设备状态查询：
+          </div>
+
+          <select  style="font-size: 13px;width:200px;height:21px;color:#0C0C0C" name="selectID" id="selectId">
+              <option value="0">查找空闲设备</option>
+              <option value="1">查找已借出设备</option>
+              <option value="2">查找已报废设备</option>
+              <option value="3">查找正在维修设备</option>
+          </select>
+
+          <button type="button" style="margin-left: 20px;"class="layui-btn layui-btn-xs" onclick="selectSome()">
+              查找</button>
+      </div>
+</div>
+<div class="table" style="   padding-top: 50px;">
+    <div id="table">
+        <table class="table table-striped" style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">设备编号</th>
+                <th style="text-align: center">设备名称</th>
+                <th style="text-align: center">设备型号</th>
+                <th style="text-align: center">设备种类</th>
+                <th style="text-align: center">购入时间</th>
+                <th style="text-align: center">所属部门</th>
+                <th style="text-align: center">存放位置</th>
+                <th style="text-align: center">设备状态</th>
+                <th style="text-align: center">备注</th>
+                <th style="text-align: center">操作</th>
+            </tr>
+            <tbody id="tBody" ></tbody>
+
+        </table>
+    </div>
+
+</div>
+<div class="tfoot"></div>
+
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    function selectById() {
+        var idValue=$("#num").val();
+        if(idValue===''){
+            alert("请输入设备编号！");
+        }
+        else if(idValue.length!==4){
+            alert("请检查填写的设备编号是否为4位数字");
+        }
+        else $.ajax({
+            url: "http://192.168.43.214:8181/equipment/findEquipmentByEnum",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                enum1:idValue,
+            }),
+            cache:false,
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("尚无此类信息，即将展示全部设备信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].estate===0){
+                            data[i].estate="空闲";
+                        }
+                        else if(data[i].estate===1){
+                            data[i].estate="已借出";
+                        }
+                        else if(data[i].estate===2){
+                            data[i].estate="报废";
+                        }
+                        else if(data[i].estate===3){
+                            data[i].estate="正在维修";
+                        }
+
+                        if(data[i].remark==="null"){
+                            data[i].remark="无";
+                        }
+                        if(data[i].remark===null){
+                            data[i].remark="无";
+                        }
+                        if(data[i].remark===""){
+                            data[i].remark="无";
+                        }
+                        var string=data[i].enum1 +'+'+
+                            encodeURIComponent(data[i].ename) +'+'+
+                            data[i].emode +'+'+
+                            encodeURIComponent(data[i].etype) +'+'+
+                            data[i].etime +'+'+
+                            data[i].dept  +'+'+
+                            data[i].eplace+'+'+
+                            data[i].estate+'+'+
+                            data[i].remark;
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].ename +'</td> <td>'
+                            +data[i].emode +'</td> <td>'
+                            +data[i].etype +'</td> <td>'
+                            +data[i].etime +'</td> <td>'
+                            +data[i].dept + '</td> <td>'
+                            +data[i].eplace+'</td> <td>'
+                            +data[i].estate+'</td> <td>'
+                            +data[i].remark+'</td>'+
+                            '<td style="text-align: center">' +
+                            '<button class="layui-btn layui-btn-xs" onclick="edit(\'' + string   + '\')">编辑</button>' +
+                            '</td></tr>';
+                    }
+                    alert("查询成功");
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                // alert('er');
+                alert("尚无此类信息，即将展示全部设备信息！");
+                window.location.href="allList.html";
+            }
+        });
+    }
+    function selectSome() {
+        // var checkText=$("#sel").find("option:selected").text(); //获取Select选择的Text
+        var checkValue=$("#selectId").find("option:selected").val();
+        var checkValue2=$("#search").val();
+        if(checkValue2===''){
+            alert("请输入设备名称");
+        }
+        else if( checkValue===''){
+            alert("请输入设备状态");
+        }
+       else $.ajax({
+                   url: "http://192.168.43.214:8181/equipment/findEquipmentByEnameAndEstate",
+                   dataType: "json",
+                   type: "post",
+                   contentType:'application/json',
+                   data:JSON.stringify({
+                       estate:checkValue,
+                       ename:checkValue2,
+                   }),
+            cache:false,
+            success:function(data){
+                       console.log(data);
+                       var str = "";
+                       var s = data.length;
+                       if(data.length === 0){
+                           alert("尚无此类信息，即将展示全部设备信息！");
+                           window.location.href="allList.html";
+                       }
+                       else{
+                           for(var i = 0;i < s;i++){
+                               if(data[i].estate===0){
+                                   data[i].estate="空闲";
+                               }
+                               else if(data[i].estate===1){
+                                   data[i].estate="已借出";
+                               }
+                               else if(data[i].estate===2){
+                                   data[i].estate="报废";
+                               }
+                               else if(data[i].estate===3){
+                                   data[i].estate="正在维修";
+                               }
+
+                               if(data[i].remark==="null"){
+                                   data[i].remark="无";
+
+                               }
+                               if(data[i].remark===null){
+                                   data[i].remark="无";
+                               }
+                               if(data[i].remark===""){
+                                   data[i].remark="无";
+                               }
+                               var string=data[i].enum1 +'+'+
+                                   encodeURIComponent(data[i].ename) +'+'+
+                                   data[i].emode +'+'+
+                                   encodeURIComponent(data[i].etype) +'+'+
+                                   data[i].etime +'+'+
+                                   data[i].dept  +'+'+
+                                   data[i].eplace+'+'+
+                                   data[i].estate+'+'+
+                                   data[i].remark;
+                               str = str +'<tr> <td>'
+                                   +data[i].enum1 +'</td> <td>'
+                                   +data[i].ename +'</td> <td>'
+                                   +data[i].emode +'</td> <td>'
+                                   +data[i].etype +'</td> <td>'
+                                   +data[i].etime +'</td> <td>'
+                                   +data[i].dept + '</td> <td>'
+                                   +data[i].eplace+'</td> <td>'
+                                   +data[i].estate+'</td> <td>'
+                                   +data[i].remark+'</td>'+
+                                   '<td style="text-align: center">' +
+                                   '<button class="layui-btn layui-btn-xs" onclick="edit(\'' + string   + '\')">编辑</button>' +
+                                   '</td></tr>';
+                           }
+                           alert("查询成功");
+                           $("#tBody").html(str);
+                           $(".tfoot").html('<div style="height: 1000px">\n' +
+                               '        </div>');
+                       }
+                   },
+                   error:function(data) {
+                        console.log(data);
+                        // alert('er');
+                       alert("尚无此类信息，即将展示全部设备信息！");
+                       window.location.href="allList.html";
+                   }
+               });
+    }
+    $(function (){
+        $.ajax({
+            url: "http://192.168.43.214:8181/equipment/findEquipmentAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("尚无此类信息！");
+                    window.location.href="allList.html";
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].estate===0){
+                            data[i].estate="空闲";
+                        }
+                        else if(data[i].estate===1){
+                            data[i].estate="已借出";
+                        }
+                        else if(data[i].estate===2){
+                            data[i].estate="报废";
+                        }
+                        else if(data[i].estate===3){
+                            data[i].estate="正在维修";
+                        }
+                         if(data[i].remark==="null"){
+                            data[i].remark="无";
+                        }
+                        else if(data[i].remark===null){
+                            data[i].remark="";
+                        }
+
+                         var string=data[i].enum1 +'+'+
+                             encodeURIComponent(data[i].ename) +'+'+
+                             data[i].emode +'+'+
+                             encodeURIComponent(data[i].etype) +'+'+
+                             data[i].etime +'+'+
+                             data[i].dept  +'+'+
+                             data[i].eplace+'+'+
+                             data[i].estate+'+'+
+                             data[i].remark;
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].ename +'</td> <td>'
+                            +data[i].emode +'</td> <td>'
+                            +data[i].etype +'</td> <td>'
+                            +data[i].etime +'</td> <td>'
+                            +data[i].dept + '</td> <td>'
+                            +data[i].eplace+'</td> <td>'
+                            +data[i].estate+'</td> <td>'
+                            +data[i].remark+'</td>'
+                            +
+                            '<td style="text-align: center">' +
+                            '<button class="layui-btn layui-btn-xs" onclick="edit(\'' + string   + '\')">编辑</button>' +
+                            '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("尚无设备信息！");
+            }
+        });
+    });
+    function edit(id) {
+        window.location.href='edit.html?id='+id;
+    }
+</script>
+</body>
+</html>

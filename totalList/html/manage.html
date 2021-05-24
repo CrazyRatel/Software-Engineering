@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设备信息查询</title>
+    <link rel="stylesheet" href="../../mainPage/css/main.css">
+    <link rel="stylesheet" href="../../mainPage/resource/bootstrap-3.3.7-dist (3)/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../mainPage/resource/layui/css/layui.css">
+    <script src="../../mainPage/resource/layui/layui.js"></script>
+</head>
+<body>
+<button type="button" style="margin-left: 20px;float: right;margin-bottom: 6px;"class="layui-btn layui-btn-xs" onclick="selectSome()">
+    筛选</button>
+<select style="width:200px;height:21px;margin-bottom:10px;color:#0C0C0C;float: right" name="selectID" id="selectId">
+    <option value="4">全部</option>
+    <option value="0">查找空闲设备</option>
+    <option value="1">查找已借出设备</option>
+    <option value="2">查找已报废设备</option>
+    <option value="3">查找正在维修设备</option>
+</select>
+<input type="text" id="serch_name" style="float: right;margin-right: 3px;" placeholder="请输入设备名称">
+    
+<div class="ready">
+    <div id="table">
+        <table class="table table-striped"  style="text-align: center">
+            <tr class="character">
+                <th style="text-align: center">设备编号</th>
+                <th style="text-align: center">设备名称</th>
+                <th style="text-align: center">设备型号</th>
+                <th style="text-align: center">设备种类</th>
+                <th style="text-align: center">购入时间</th>
+                <th style="text-align: center">所属部门</th>
+                <th style="text-align: center">存放位置</th>
+                <th style="text-align: center">设备状态</th>
+                <th style="text-align: center">备注</th>
+                <th style="text-align: center">操作</th>
+            </tr>
+            
+            <!-- <tr class="character">
+                <td style="text-align: center">1</td>
+                <td style="text-align: center">2</td>
+                <td style="text-align: center">3</td>
+                <td style="text-align: center">4</td>
+                <td style="text-align: center">5</td>
+                <td style="text-align: center">6</td>
+                <td style="text-align: center">7</td>
+                <td style="text-align: center">8</td>
+                <td style="text-align: center">9</td>
+                <td style="text-align: center">
+                    <button class="layui-btn layui-btn-xs" onclick="borrow(this)">
+                        借用  </button>
+                </td>
+            </tr> -->
+            <tbody id="tBody"></tbody>
+            
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="../../mainPage/resource/jquery-1.12.0.min (5)/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url: "http://192.168.43.214:8181/equipment/findEquipmentAll",
+            dataType: "json",
+            type: "get",
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("error");
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].estate===0){
+                            data[i].estate="空闲";
+                        }
+                        if(data[i].estate===1){
+                            data[i].estate="已借出";
+                        }
+                        if(data[i].estate===2){
+                            data[i].estate="报废";
+                        }
+                        if(data[i].estate===3){
+                            data[i].estate="正在维修";
+                        }
+                        if(data[i].remark==="null"){
+                            data[i].remark="无";
+                        }
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].ename +'</td> <td>'
+                            +data[i].emode +'</td> <td>'
+                            +data[i].etype +'</td> <td>'
+                            +data[i].etime +'</td> <td>'
+                            +data[i].dept + '</td> <td>'
+                            +data[i].eplace+'</td> <td>'
+                            +data[i].estate+'</td> <td>'
+                            +data[i].remark+'</td>'
+                            +
+                            '<td style="text-align: center">' +
+                                '<button class="layui-btn layui-btn-xs" onclick="borrow(this)" >借用  </button>' +
+                            '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("请求服务器失败！！请稍后重试！");
+            }
+        });
+    });
+
+    function borrow(this1){
+        
+        var str = $(this1).parent().parent().find("td");
+
+        //修改cookie
+        document.cookie ="enum="+str.eq(0).text();
+        console.log(document.cookie);
+
+        window.location.href="borrow_device.html?id="+window.location.href.split("=")[1].split("+")[0]
+            +"+"+window.location.href.split("=")[1].split("+")[1]+"+"+window.location.href.split("=")[1].split("+")[2]
+            +"+"+window.location.href.split("=")[1].split("+")[3];
+    };
+
+    function selectSome() {
+        // var checkText=$("#sel").find("option:selected").text(); //获取Select选择的Text
+        var checkValue=$("#selectId").find("option:selected").val();
+        $.ajax({
+            url: "http://192.168.43.214:8181/equipment//findEquipmentByEnameAndEstate",
+            dataType: "json",
+            type: "post",
+            contentType:'application/json',
+            data:JSON.stringify({
+                ename:$("#serch_name").val(),
+                estate:checkValue
+            }),
+            cache:false,
+            success:function(data){
+                console.log(data);
+                var str = "";
+                var s = data.length;
+                if(data.length === 0){
+                    alert("无符合条件的设备！");
+                }
+                else{
+                    for(var i = 0;i < s;i++){
+                        if(data[i].estate===0){
+                            data[i].estate="空闲";
+                        }
+                        else if(data[i].estate===1){
+                            data[i].estate="已借出";
+                        }
+                        else if(data[i].estate===2){
+                            data[i].estate="报废";
+                        }
+                        else if(data[i].estate===3){
+                            data[i].estate="正在维修";
+                        }
+                        else if(data[i].remark==="null"){
+                            data[i].remark="无";
+                        }
+                        else if(data[i].remark===null){
+                            data[i].remark="无";
+                        }
+                        str = str +'<tr> <td>'
+                            +data[i].enum1 +'</td> <td>'
+                            +data[i].ename +'</td> <td>'
+                            +data[i].emode +'</td> <td>'
+                            +data[i].etype +'</td> <td>'
+                            +data[i].etime +'</td> <td>'
+                            +data[i].dept + '</td> <td>'
+                            +data[i].eplace+'</td> <td>'
+                            +data[i].estate+'</td> <td>'
+                            +data[i].remark+'</td>'
+                            +
+                        '<td style="text-align: center">' +
+                            '<button class="layui-btn layui-btn-xs" onclick="borrow(this)" >借用  </button>' +
+                        '</td></tr>';
+                    }
+                    $("#tBody").html(str);
+                }
+            },
+            error:function(data) {
+                console.log(data);
+                alert("请求服务器失败！！请稍后重试！");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
